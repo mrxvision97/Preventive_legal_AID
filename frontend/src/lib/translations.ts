@@ -1,0 +1,238 @@
+// Translation files for multilingual support
+
+export const translations = {
+  en: {
+    // Common
+    'app.name': 'VU Legal AID',
+    'common.loading': 'Loading...',
+    'common.error': 'An error occurred',
+    'common.submit': 'Submit',
+    'common.cancel': 'Cancel',
+    'common.save': 'Save',
+    'common.delete': 'Delete',
+    'common.edit': 'Edit',
+    'common.close': 'Close',
+    
+    // Navigation
+    'nav.home': 'Home',
+    'nav.dashboard': 'Dashboard',
+    'nav.query': 'Ask Question',
+    'nav.history': 'History',
+    'nav.profile': 'Profile',
+    'nav.resources': 'Resources',
+    'nav.login': 'Login',
+    'nav.signup': 'Sign Up',
+    'nav.logout': 'Logout',
+    
+    // Landing Page
+    'landing.hero.title': 'Get Legal Guidance Before Conflicts Arise',
+    'landing.hero.subtitle': 'AI-powered preventive legal assistance for rural citizens, farmers, and university students in India.',
+    'landing.hero.cta': 'Get Started Free',
+    'landing.hero.chat': 'Chat Now (Free)',
+    
+    // Chatbot
+    'chatbot.welcome': 'Hello! I\'m VU Legal AID assistant. How can I help you with your legal question today?',
+    'chatbot.placeholder': 'Ask your legal question...',
+    'chatbot.send': 'Send',
+    'chatbot.recording': 'Recording...',
+    'chatbot.upload': 'Upload Document',
+    
+    // Domains
+    'domain.agriculture': 'Agriculture',
+    'domain.civil': 'Civil',
+    'domain.family': 'Family',
+    'domain.university': 'University',
+  },
+  hi: {
+    'app.name': 'VU लीगल एड',
+    'common.loading': 'लोड हो रहा है...',
+    'common.error': 'एक त्रुटि हुई',
+    'common.submit': 'जमा करें',
+    'common.cancel': 'रद्द करें',
+    'common.save': 'सहेजें',
+    'common.delete': 'हटाएं',
+    'common.edit': 'संपादित करें',
+    'common.close': 'बंद करें',
+    
+    'nav.home': 'होम',
+    'nav.dashboard': 'डैशबोर्ड',
+    'nav.query': 'प्रश्न पूछें',
+    'nav.history': 'इतिहास',
+    'nav.profile': 'प्रोफ़ाइल',
+    'nav.resources': 'संसाधन',
+    'nav.login': 'लॉगिन',
+    'nav.signup': 'साइन अप',
+    'nav.logout': 'लॉगआउट',
+    
+    'landing.hero.title': 'संघर्ष शुरू होने से पहले कानूनी मार्गदर्शन प्राप्त करें',
+    'landing.hero.subtitle': 'भारत में ग्रामीण नागरिकों, किसानों और विश्वविद्यालय के छात्रों के लिए AI-संचालित निवारक कानूनी सहायता।',
+    'landing.hero.cta': 'मुफ्त में शुरू करें',
+    'landing.hero.chat': 'अभी चैट करें (मुफ्त)',
+    
+    'chatbot.welcome': 'नमस्ते! मैं VU लीगल एड असिस्टेंट हूं। आज मैं आपकी कानूनी समस्या में कैसे मदद कर सकता हूं?',
+    'chatbot.placeholder': 'अपना कानूनी प्रश्न पूछें...',
+    'chatbot.send': 'भेजें',
+    'chatbot.recording': 'रिकॉर्डिंग...',
+    'chatbot.upload': 'दस्तावेज़ अपलोड करें',
+    
+    'domain.agriculture': 'कृषि',
+    'domain.civil': 'नागरिक',
+    'domain.family': 'परिवार',
+    'domain.university': 'विश्वविद्यालय',
+  },
+  ta: {
+    'app.name': 'VU சட்ட உதவி',
+    'common.loading': 'ஏற்றுகிறது...',
+    'common.error': 'ஒரு பிழை ஏற்பட்டது',
+    'common.submit': 'சமர்ப்பிக்க',
+    'common.cancel': 'ரத்துசெய்',
+    'common.save': 'சேமி',
+    'common.delete': 'நீக்கு',
+    'common.edit': 'திருத்து',
+    'common.close': 'மூடு',
+    
+    'nav.home': 'வீடு',
+    'nav.dashboard': 'டாஷ்போர்டு',
+    'nav.query': 'கேள்வி கேள்',
+    'nav.history': 'வரலாறு',
+    'nav.profile': 'சுயவிவரம்',
+    'nav.resources': 'வளங்கள்',
+    'nav.login': 'உள்நுழை',
+    'nav.signup': 'பதிவு செய்',
+    'nav.logout': 'வெளியேறு',
+    
+    'landing.hero.title': 'மோதல்கள் தொடங்குவதற்கு முன் சட்ட வழிகாட்டுதலைப் பெறுங்கள்',
+    'landing.hero.subtitle': 'இந்தியாவில் கிராமப்புற குடிமக்கள், விவசாயிகள் மற்றும் பல்கலைக்கழக மாணவர்களுக்கான AI-இயக்கப்பட்ட தடுப்பு சட்ட உதவி।',
+    'landing.hero.cta': 'இலவசமாக தொடங்க',
+    'landing.hero.chat': 'இப்போது அரட்டை (இலவசம்)',
+    
+    'chatbot.welcome': 'வணக்கம்! நான் VU சட்ட உதவி உதவியாளர். இன்று உங்கள் சட்ட கேள்வியில் நான் எவ்வாறு உதவ முடியும்?',
+    'chatbot.placeholder': 'உங்கள் சட்ட கேள்வியைக் கேளுங்கள்...',
+    'chatbot.send': 'அனுப்பு',
+    'chatbot.recording': 'பதிவு செய்கிறது...',
+    'chatbot.upload': 'ஆவணத்தை பதிவேற்று',
+    
+    'domain.agriculture': 'விவசாயம்',
+    'domain.civil': 'சிவில்',
+    'domain.family': 'குடும்பம்',
+    'domain.university': 'பல்கலைக்கழகம்',
+  },
+  te: {
+    'app.name': 'VU లీగల్ ఎయిడ్',
+    'common.loading': 'లోడ్ అవుతోంది...',
+    'common.error': 'దోషం సంభవించింది',
+    'common.submit': 'సమర్పించండి',
+    'common.cancel': 'రద్దు చేయండి',
+    'common.save': 'సేవ్ చేయండి',
+    'common.delete': 'తొలగించండి',
+    'common.edit': 'సవరించండి',
+    'common.close': 'మూసివేయండి',
+    
+    'nav.home': 'హోమ్',
+    'nav.dashboard': 'డాష్బోర్డ్',
+    'nav.query': 'ప్రశ్న అడగండి',
+    'nav.history': 'చరిత్ర',
+    'nav.profile': 'ప్రొఫైల్',
+    'nav.resources': 'వనరులు',
+    'nav.login': 'లాగిన్',
+    'nav.signup': 'సైన్ అప్',
+    'nav.logout': 'లాగ్అవుట్',
+    
+    'landing.hero.title': 'సంఘర్షణలు ప్రారంభమవడానికి ముందు చట్టపరమైన మార్గదర్శకత్వాన్ని పొందండి',
+    'landing.hero.subtitle': 'భారతదేశంలోని గ్రామీణ పౌరులు, రైతులు మరియు విశ్వవిద్యాలయ విద్యార్థులకు AI-నడిచే నివారణ చట్టపరమైన సహాయం।',
+    'landing.hero.cta': 'ఉచితంగా ప్రారంభించండి',
+    'landing.hero.chat': 'ఇప్పుడు చాట్ చేయండి (ఉచితం)',
+    
+    'chatbot.welcome': 'నమస్కారం! నేను VU లీగల్ ఎయిడ్ అసిస్టెంట్. నేడు మీ చట్టపరమైన ప్రశ్నలో నేను ఎలా సహాయం చేయగలను?',
+    'chatbot.placeholder': 'మీ చట్టపరమైన ప్రశ్నను అడగండి...',
+    'chatbot.send': 'పంపండి',
+    'chatbot.recording': 'రికార్డింగ్...',
+    'chatbot.upload': 'డాక్యుమెంట్ అప్లోడ్ చేయండి',
+    
+    'domain.agriculture': 'వ్యవసాయం',
+    'domain.civil': 'సివిల్',
+    'domain.family': 'కుటుంబం',
+    'domain.university': 'విశ్వవిద్యాలయం',
+  },
+  bn: {
+    'app.name': 'VU লিগাল এইড',
+    'common.loading': 'লোড হচ্ছে...',
+    'common.error': 'একটি ত্রুটি ঘটেছে',
+    'common.submit': 'জমা দিন',
+    'common.cancel': 'বাতিল',
+    'common.save': 'সংরক্ষণ',
+    'common.delete': 'মুছুন',
+    'common.edit': 'সম্পাদনা',
+    'common.close': 'বন্ধ',
+    
+    'nav.home': 'হোম',
+    'nav.dashboard': 'ড্যাশবোর্ড',
+    'nav.query': 'প্রশ্ন জিজ্ঞাসা করুন',
+    'nav.history': 'ইতিহাস',
+    'nav.profile': 'প্রোফাইল',
+    'nav.resources': 'সম্পদ',
+    'nav.login': 'লগইন',
+    'nav.signup': 'সাইন আপ',
+    'nav.logout': 'লগআউট',
+    
+    'landing.hero.title': 'সংঘাত শুরু হওয়ার আগে আইনি নির্দেশনা পান',
+    'landing.hero.subtitle': 'ভারতের গ্রামীণ নাগরিক, কৃষক এবং বিশ্ববিদ্যালয়ের শিক্ষার্থীদের জন্য AI-চালিত প্রতিরোধমূলক আইনি সহায়তা।',
+    'landing.hero.cta': 'বিনামূল্যে শুরু করুন',
+    'landing.hero.chat': 'এখনই চ্যাট করুন (বিনামূল্যে)',
+    
+    'chatbot.welcome': 'নমস্কার! আমি VU লিগাল এইড সহায়ক। আজ আমি আপনার আইনি প্রশ্নে কীভাবে সাহায্য করতে পারি?',
+    'chatbot.placeholder': 'আপনার আইনি প্রশ্ন জিজ্ঞাসা করুন...',
+    'chatbot.send': 'পাঠান',
+    'chatbot.recording': 'রেকর্ডিং...',
+    'chatbot.upload': 'নথি আপলোড করুন',
+    
+    'domain.agriculture': 'কৃষি',
+    'domain.civil': 'সিভিল',
+    'domain.family': 'পরিবার',
+    'domain.university': 'বিশ্ববিদ্যালয়',
+  },
+  mr: {
+    'app.name': 'VU लीगल एड',
+    'common.loading': 'लोड होत आहे...',
+    'common.error': 'एक त्रुटी आली',
+    'common.submit': 'सबमिट करा',
+    'common.cancel': 'रद्द करा',
+    'common.save': 'जतन करा',
+    'common.delete': 'हटवा',
+    'common.edit': 'संपादित करा',
+    'common.close': 'बंद करा',
+    
+    'nav.home': 'होम',
+    'nav.dashboard': 'डॅशबोर्ड',
+    'nav.query': 'प्रश्न विचारा',
+    'nav.history': 'इतिहास',
+    'nav.profile': 'प्रोफाइल',
+    'nav.resources': 'संसाधने',
+    'nav.login': 'लॉगिन',
+    'nav.signup': 'साइन अप',
+    'nav.logout': 'लॉगआउट',
+    
+    'landing.hero.title': 'संघर्ष सुरू होण्यापूर्वी कायदेशीर मार्गदर्शन मिळवा',
+    'landing.hero.subtitle': 'भारतातील ग्रामीण नागरिक, शेतकरी आणि विद्यापीठातील विद्यार्थ्यांसाठी AI-चालित निवारक कायदेशीर सहाय्य।',
+    'landing.hero.cta': 'विनामूल्य सुरू करा',
+    'landing.hero.chat': 'आत्ता चॅट करा (विनामूल्य)',
+    
+    'chatbot.welcome': 'नमस्कार! मी VU लीगल एड सहाय्यक आहे. आज मी तुमच्या कायदेशीर प्रश्नात कशी मदत करू शकतो?',
+    'chatbot.placeholder': 'तुमचा कायदेशीर प्रश्न विचारा...',
+    'chatbot.send': 'पाठवा',
+    'chatbot.recording': 'रेकॉर्डिंग...',
+    'chatbot.upload': 'दस्तऐवज अपलोड करा',
+    
+    'domain.agriculture': 'शेती',
+    'domain.civil': 'नागरी',
+    'domain.family': 'कुटुंब',
+    'domain.university': 'विद्यापीठ',
+  },
+}
+
+export type Language = 'en' | 'hi' | 'ta' | 'te' | 'bn' | 'mr'
+
+export const getTranslation = (key: string, language: Language = 'en'): string => {
+  return translations[language]?.[key] || translations.en[key] || key
+}
+
