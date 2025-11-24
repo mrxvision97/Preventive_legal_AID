@@ -208,5 +208,55 @@
     "question": "What should I do if I'm injured on campus?",
     "answer": "Seek medical attention immediately and document your injuries with photos and medical records. Report the incident to campus security or administration and file an incident report. Identify witnesses and get their contact information. Document the hazard that caused your injury. Keep all medical bills and related expenses. Consider consulting a personal injury attorney, especially for serious injuries. Universities may have sovereign immunity limitations, but negligence claims may still be viable.",
     "keywords": ["injury", "accident", "campus", "negligence", "personal injury"]
+  },
+  {
+    "id": 31,
+    "question": "What constitutional rights do university students have in India?",
+    "answer": "University students in India have fundamental rights including right to equality, right to life and liberty, right to freedom of speech and expression, and right against discrimination, as guaranteed by the Constitution of India."
+  },
+  {
+    "id": 32,
+    "question": "Is ragging legal in Indian universities?",
+    "answer": "Ragging is strictly banned in all Indian universities under UGC anti-ragging regulations and is a criminal offence. Students found guilty may face expulsion and criminal charges."
+  },
+  {
+    "id": 33,
+    "question": "Can a student be rusticated without a fair hearing?",
+    "answer": "No student can be expelled or rusticated from a university without being given an opportunity to be heard, and without due process as per university disciplinary rules."
+  },
+  {
+    "id": 34,
+    "question": "Do universities have the right to increase fees arbitrarily?",
+    "answer": "Universities cannot arbitrarily increase fees. Any changes must follow due process, often requiring consultation with student bodies and regulatory approval."
+  },
+  {
+    "id": 35,
+    "question": "What is the minimum attendance required to appear in university exams?",
+    "answer": "The minimum attendance required varies by university, but typically ranges from 75%-80% of classes attended in a semester."
+  },
+  {
+    "id": 36,
+    "question": "Are students allowed to protest on campus?",
+    "answer": "Students have the right to peaceful protest and assembly on campus, provided they do not disrupt academic activities or violate public order."
+  },
+  {
+    "id": 37,
+    "question": "Can a student access information about university policies and finances?",
+    "answer": "Yes, under the Right to Information Act and UGC regulations, students have a right to access official documents, exam schedules, fee structure, and university policies."
+  },
+  {
+    "id": 38,
+    "question": "Is discrimination based on caste or gender allowed in universities?",
+    "answer": "No, any form of discrimination based on caste, gender, religion, or economic background is strictly prohibited and punishable under Article 14 and UGC guidelines."
+  },
+  {
+    "id": 39,
+    "question": "Are hostels required to provide hygienic living conditions?",
+    "answer": "Universities must ensure that hostel facilities are safe, hygienic, and fairly priced, as per UGC and state education department standards."
+  },
+  {
+    "id": 40,
+    "question": "What can a student do if they are harassed by staff or faculty?",
+    "answer": "Every university is mandated to set up Internal Complaints Committees to address student grievances, including harassment complaints."
   }
 ]
