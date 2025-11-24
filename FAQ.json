@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "category": "Housing & Tenancy",
+    "question": "Can my landlord enter my apartment without notice?",
+    "answer": "Generally, no. Most jurisdictions require landlords to provide reasonable notice (typically 24-48 hours) before entering your rental unit, except in emergencies. Check your lease agreement and local tenant laws for specific requirements. Landlords usually need a valid reason such as repairs, inspections, or showing the property to prospective tenants.",
+    "keywords": ["landlord", "privacy", "rental", "notice", "apartment"]
+  },
+  {
+    "id": 2,
+    "category": "Housing & Tenancy",
+    "question": "What can I do if my landlord won't return my security deposit?",
+    "answer": "First, review your lease agreement and document the condition of the property with photos. Send a written demand letter to your landlord citing relevant tenant laws. If unresolved, you may file a claim in small claims court. Many jurisdictions require landlords to return deposits within 30 days and provide an itemized list of any deductions. Keep all receipts and correspondence as evidence.",
+    "keywords": ["security deposit", "landlord", "refund", "tenant rights"]
+  },
+  {
+    "id": 3,
+    "category": "Housing & Tenancy",
+    "question": "Can I break my lease early without penalty?",
+    "answer": "It depends on your circumstances and local laws. Valid reasons for breaking a lease may include: military deployment, domestic violence, landlord's failure to maintain habitable conditions, or illegal lease terms. Some leases have early termination clauses. Otherwise, you may need to find a replacement tenant (subletting) or negotiate with your landlord. Review your lease agreement and consult local tenant protection laws.",
+    "keywords": ["lease", "breaking lease", "early termination", "subletting"]
+  },
+  {
+    "id": 4,
+    "category": "Employment",
+    "question": "Is my unpaid internship legal?",
+    "answer": "Unpaid internships are legal under specific conditions: the internship must be primarily educational, not displace regular employees, provide training similar to an educational environment, and not provide immediate advantage to the employer. If you're doing regular employee work, you may be entitled to minimum wage. The 'primary beneficiary test' is often used to determine legality. Non-profit and government internships have different rules.",
+    "keywords": ["internship", "unpaid", "employment", "minimum wage", "labor rights"]
+  },
+  {
+    "id": 5,
+    "category": "Employment",
+    "question": "Can I be fired for calling in sick?",
+    "answer": "In most at-will employment states, employers can terminate employment for almost any reason, including absences. However, protections exist under FMLA (Family and Medical Leave Act) for serious health conditions, ADA (Americans with Disabilities Act) for disability-related absences, and some state/local sick leave laws. If you have a legitimate medical reason, communicate clearly with your employer and obtain documentation. Review your employee handbook for specific policies.",
+    "keywords": ["firing", "sick leave", "employment", "FMLA", "job protection"]
+  },
+  {
+    "id": 6,
+    "category": "Employment",
+    "question": "What should I do if I'm not being paid for overtime?",
+    "answer": "Under the Fair Labor Standards Act (FLSA), non-exempt employees must receive overtime pay (1.5x regular rate) for hours worked over 40 per week. Document all hours worked, including dates and times. Speak with your employer first, as it may be an error. If unresolved, file a complaint with your state's Department of Labor or the federal Wage and Hour Division. You may be entitled to back pay for up to 2-3 years.",
+    "keywords": ["overtime", "wages", "FLSA", "unpaid wages", "labor law"]
+  },
+  {
+    "id": 7,
+    "category": "Criminal Law",
+    "question": "What should I do if I'm arrested?",
+    "answer": "Exercise your constitutional rights: remain silent (except to identify yourself), request an attorney immediately, and do not consent to searches without a warrant. Do not resist arrest, argue, or provide explanations without legal counsel. You have the right to make a phone call. Do not sign anything or make statements without an attorney present. Remember: anything you say can be used against you in court.",
+    "keywords": ["arrest", "rights", "Miranda rights", "attorney", "criminal"]
+  },
+  {
+    "id": 8,
+    "category": "Criminal Law",
+    "question": "Can police search my dorm room?",
+    "answer": "It depends. If you live in university housing, the institution may have search policies in the housing agreement. Campus police may have different authority than city police. Generally, police need a warrant, your consent, or exigent circumstances (emergency). University officials may have broader search rights based on housing contracts. Never physically resist a search, but clearly state you do not consent. Seek legal advice immediately if a search occurs.",
+    "keywords": ["search", "dorm", "Fourth Amendment", "police", "privacy"]
+  },
+  {
+    "id": 9,
+    "category": "Criminal Law",
+    "question": "What happens if I get a citation for underage drinking?",
+    "answer": "Consequences vary by jurisdiction but may include fines, mandatory alcohol education programs, community service, license suspension, and a criminal record. First offenses may be eligible for diversion programs. An MIP (Minor in Possession) charge can affect financial aid, scholarships, and future employment. Consider consulting an attorney to explore options like expungement or record sealing. Don't ignore the citation—respond by the deadline.",
+    "keywords": ["underage drinking", "MIP", "alcohol", "citation", "minor"]
+  },
+  {
+    "id": 10,
+    "category": "Consumer Rights",
+    "question": "Can I get a refund on my textbooks?",
+    "answer": "Refund policies depend on where you purchased the books. Most campus bookstores allow returns within a specific timeframe (often 7-14 days) with receipt and in original condition. Books cannot usually be returned if shrink-wrap is removed from bundled materials. Online retailers have their own return policies. Used books may have different return terms. Always keep receipts and check the return policy before purchasing.",
+    "keywords": ["refund", "textbooks", "bookstore", "return policy", "consumer rights"]
+  },
+  {
+    "id": 11,
+    "category": "Consumer Rights",
+    "question": "What can I do about fraudulent credit card charges?",
+    "answer": "Immediately contact your credit card issuer to report the fraud. Under the Fair Credit Billing Act, your liability for unauthorized charges is limited to $50, and most issuers offer zero liability. Freeze your card, dispute the charges in writing within 60 days, monitor your credit reports, and file a police report if necessary. Document all communications. Consider placing a fraud alert on your credit file.",
+    "keywords": ["fraud", "credit card", "identity theft", "dispute", "consumer protection"]
+  },
+  {
+    "id": 12,
+    "category": "Consumer Rights",
+    "question": "Is a gym membership contract binding if I'm a student?",
+    "answer": "Yes, contracts are generally binding regardless of student status. However, some states have laws allowing cancellation of gym memberships under certain circumstances (relocation, medical issues). Read the contract carefully for cancellation terms, fees, and conditions. Some gyms offer student-specific memberships with more flexible terms. If you're under 18, the contract may be voidable. Document all communications in writing when attempting to cancel.",
+    "keywords": ["contract", "gym membership", "cancellation", "student", "binding agreement"]
+  },
+  {
+    "id": 13,
+    "category": "Academic Issues",
+    "question": "Can I be expelled for plagiarism?",
+    "answer": "Yes, plagiarism is a serious academic integrity violation that can result in expulsion, although consequences typically escalate with severity and repeat offenses. First offenses might result in failing the assignment or course. Review your university's academic integrity policy and honor code. If accused, you typically have the right to a hearing. Consider seeking advice from student advocacy services or an attorney. Always cite sources properly and understand what constitutes plagiarism.",
+    "keywords": ["plagiarism", "academic integrity", "expulsion", "honor code", "cheating"]
+  },
+  {
+    "id": 14,
+    "category": "Academic Issues",
+    "question": "What are my rights if I'm accused of academic dishonesty?",
+    "answer": "You have the right to due process, including written notice of charges, access to evidence, opportunity to respond, and usually a hearing before an impartial body. You can typically present your case, call witnesses, and appeal decisions. Review your student handbook for specific procedures. Consider obtaining an advisor or attorney to help navigate the process. Document everything and respond to all deadlines. Take allegations seriously even if you believe they're unfounded.",
+    "keywords": ["academic dishonesty", "due process", "hearing", "student rights", "appeal"]
+  },
+  {
+    "id": 15,
+    "category": "Academic Issues",
+    "question": "Can my professor fail me for excessive absences?",
+    "answer": "Yes, if attendance is part of the course requirements stated in the syllabus. Professors have academic freedom to set attendance policies. However, reasonable accommodations must be made for documented disabilities, religious observances, or medical emergencies. Review your course syllabus and university attendance policy. If you have legitimate reasons for absences, communicate with your professor and provide documentation. Consider appealing through academic channels if the policy seems arbitrarily applied.",
+    "keywords": ["attendance", "absences", "failing", "syllabus", "professor"]
+  },
+  {
+    "id": 16,
+    "category": "Discrimination & Harassment",
+    "question": "What constitutes sexual harassment on campus?",
+    "answer": "Sexual harassment includes unwelcome sexual advances, requests for sexual favors, and other verbal or physical conduct of a sexual nature that creates a hostile environment or affects academic/employment decisions. This covers quid pro quo harassment (trading favors for grades/jobs) and hostile environment (pervasive unwelcome behavior). Title IX protects students from sex-based discrimination. Report incidents to your Title IX coordinator. You have the right to supportive measures and a formal investigation.",
+    "keywords": ["sexual harassment", "Title IX", "hostile environment", "discrimination", "campus safety"]
+  },
+  {
+    "id": 17,
+    "category": "Discrimination & Harassment",
+    "question": "Can I file a complaint if I'm being discriminated against?",
+    "answer": "Yes. Federal laws prohibit discrimination based on race, color, national origin, sex, disability, and age. File complaints with your university's equity/civil rights office, Title IX coordinator (for sex discrimination), or disability services (for disability discrimination). You can also file external complaints with the Office for Civil Rights (OCR) or Equal Employment Opportunity Commission (EEOC) for employment discrimination. Document incidents with dates, witnesses, and evidence. Retaliation for filing complaints is illegal.",
+    "keywords": ["discrimination", "complaint", "civil rights", "protected class", "retaliation"]
+  },
+  {
+    "id": 18,
+    "category": "Discrimination & Harassment",
+    "question": "What protections do I have as a student with a disability?",
+    "answer": "Under the ADA and Section 504 of the Rehabilitation Act, you're entitled to reasonable accommodations that provide equal access to education. This includes modified testing, assistive technology, accessible housing, and adjusted deadlines. Register with your campus disability services office and provide documentation. Accommodations should not fundamentally alter the program. Professors must honor approved accommodations. You're protected from disability-based discrimination and harassment.",
+    "keywords": ["disability", "ADA", "accommodations", "Section 504", "accessibility"]
+  },
+  {
+    "id": 19,
+    "category": "Financial Aid & Student Loans",
+    "question": "Can my financial aid be taken away?",
+    "answer": "Yes, financial aid can be revoked or reduced for several reasons: failing to maintain satisfactory academic progress (SAP), changes in enrollment status, receiving external scholarships, changes in financial situation, or violations of university policies. You may be able to appeal SAP suspensions. Drug convictions can affect federal aid eligibility. Always respond to financial aid office requests promptly and maintain the required GPA and credit completion rate.",
+    "keywords": ["financial aid", "scholarships", "SAP", "academic progress", "grants"]
+  },
+  {
+    "id": 20,
+    "category": "Financial Aid & Student Loans",
+    "question": "What happens if I can't repay my student loans?",
+    "answer": "Defaulting on student loans has serious consequences: damaged credit, wage garnishment, tax refund seizure, and ineligibility for additional aid. However, options exist: income-driven repayment plans, deferment, forbearance, loan rehabilitation, or consolidation. Contact your loan servicer immediately if struggling. Federal loans offer more flexible repayment options than private loans. Student loans are generally not dischargeable in bankruptcy. Don't ignore the problem—communication is key.",
+    "keywords": ["student loans", "default", "repayment", "forbearance", "deferment"]
+  },
+  {
+    "id": 21,
+    "category": "Financial Aid & Student Loans",
+    "question": "Am I responsible for my parents' PLUS loans?",
+    "answer": "No. Parent PLUS loans are the legal responsibility of the parent borrower, not the student. Parents cannot transfer these loans to their children. However, families often have informal agreements where students help repay them. If the parent dies or becomes permanently disabled, the loan may be discharged. Students should understand this distinction when planning their education financing and future financial obligations.",
+    "keywords": ["PLUS loans", "parent loans", "responsibility", "student debt", "family"]
+  },
+  {
+    "id": 22,
+    "category": "Privacy & Data",
+    "question": "Can my university share my grades with my parents?",
+    "answer": "Generally, no. Under FERPA (Family Educational Rights and Privacy Act), students 18+ have privacy rights over their educational records. Universities cannot share grades or other educational information with parents without the student's written consent. Exceptions exist for health/safety emergencies or if the student is a tax dependent and the request meets specific criteria. You can grant parents access through a FERPA waiver.",
+    "keywords": ["FERPA", "privacy", "grades", "parents", "educational records"]
+  },
+  {
+    "id": 23,
+    "category": "Privacy & Data",
+    "question": "Is it legal for professors to post grades publicly?",
+    "answer": "No, posting grades with personally identifiable information (names, student IDs) violates FERPA. Professors can post grades if they use anonymous coding systems that students can identify but others cannot. Screenshots or public posting of identifiable grades can result in FERPA violations. If this occurs, report it to your registrar's office or FERPA compliance officer. Your educational records must remain confidential.",
+    "keywords": ["FERPA", "grades", "privacy", "public posting", "student ID"]
+  },
+  {
+    "id": 24,
+    "category": "Contracts & Agreements",
+    "question": "What should I know before signing a lease?",
+    "answer": "Read the entire lease carefully before signing. Key items to review: monthly rent amount, lease duration, security deposit terms, utilities included, maintenance responsibilities, guest policies, pet policies, early termination clauses, subletting rules, and renewal terms. Understand late fees, who pays for repairs, and notice requirements. Document existing damage with photos before moving in. Never sign a lease with blank spaces. Keep a copy of the signed lease.",
+    "keywords": ["lease", "rental agreement", "contract", "tenant", "housing"]
+  },
+  {
+    "id": 25,
+    "category": "Contracts & Agreements",
+    "question": "Is a verbal agreement legally binding?",
+    "answer": "Yes, verbal agreements can be legally binding contracts, but they're difficult to prove and enforce. The Statute of Frauds requires certain contracts (real estate, agreements lasting over one year, marriage, goods over $500) to be in writing. Always get important agreements in writing, including terms, dates, and signatures. Texts and emails can serve as written evidence. Verbal agreements are particularly risky for students in housing, employment, or financial matters.",
+    "keywords": ["verbal agreement", "contract", "binding", "written agreement", "Statute of Frauds"]
+  },
+  {
+    "id": 26,
+    "category": "Intellectual Property",
+    "question": "Who owns the rights to my class projects and papers?",
+    "answer": "Generally, students own the copyright to their original academic work, including papers, projects, and presentations. However, review your university's intellectual property policy, as institutions may claim rights to work created with substantial university resources, funded research, or work-for-hire situations. If your work is created as part of employment or funded research, ownership may be shared or assigned to the university. Always clarify ownership before undertaking major projects.",
+    "keywords": ["copyright", "intellectual property", "student work", "ownership", "academic projects"]
+  },
+  {
+    "id": 27,
+    "category": "Intellectual Property",
+    "question": "Can I use copyrighted materials in my presentations?",
+    "answer": "Limited use of copyrighted materials for educational purposes may qualify as fair use under copyright law. Factors considered: purpose (educational vs commercial), nature of work, amount used, and effect on market value. Using small portions for criticism, comment, or education is often acceptable. However, fair use is determined case-by-case. Always credit sources. For public presentations or publications, obtain permission. Openly licensed or public domain materials are safer alternatives.",
+    "keywords": ["copyright", "fair use", "educational use", "presentations", "intellectual property"]
+  },
+  {
+    "id": 28,
+    "category": "Immigration",
+    "question": "What are my work restrictions as an international student?",
+    "answer": "F-1 students can work on-campus up to 20 hours/week during the academic year (full-time during breaks) without special authorization. Off-campus work requires authorization like CPT (Curricular Practical Training) or OPT (Optional Practical Training). J-1 students have different rules based on their program. Unauthorized employment can result in visa termination and deportation. Always consult your international student office before accepting any employment. Volunteer work may also have restrictions.",
+    "keywords": ["F-1 visa", "international student", "work authorization", "CPT", "OPT"]
+  },
+  {
+    "id": 29,
+    "category": "Immigration",
+    "question": "What happens if I overstay my student visa?",
+    "answer": "Overstaying your visa has serious consequences: you accrue unlawful presence, may be barred from re-entering the US (3-year bar for 180+ days, 10-year bar for 1+ year), lose legal status, and face deportation. If you're approaching your visa expiration, contact your international student office immediately about extensions, program changes, or OPT. If you've overstayed, consult an immigration attorney immediately. Some situations may qualify for reinstatement. Don't travel if out of status.",
+    "keywords": ["visa", "overstay", "immigration", "international student", "F-1"]
+  },
+  {
+    "id": 30,
+    "category": "Personal Injury",
+    "question": "What should I do if I'm injured on campus?",
+    "answer": "Seek medical attention immediately and document your injuries with photos and medical records. Report the incident to campus security or administration and file an incident report. Identify witnesses and get their contact information. Document the hazard that caused your injury. Keep all medical bills and related expenses. Consider consulting a personal injury attorney, especially for serious injuries. Universities may have sovereign immunity limitations, but negligence claims may still be viable.",
+    "keywords": ["injury", "accident", "campus", "negligence", "personal injury"]
+  }
+]
