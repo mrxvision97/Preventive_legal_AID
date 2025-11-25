@@ -34,13 +34,16 @@ Preventive_legal/
 ## Getting Started
 
 ### Prerequisites
-- Python 3.11+
+- Python 3.11+ (or 3.8+ for Jetson Nano)
 - Node.js 18+
-- PostgreSQL 15+
-- Redis 7+
+- PostgreSQL 15+ (optional - currently disabled)
+- Redis 7+ (optional - for caching)
 
-### Backend Setup
+### Platform-Specific Setup
 
+#### For Laptops/Desktops (Development)
+
+**Backend Setup:**
 ```bash
 cd backend
 python -m venv venv
@@ -48,12 +51,11 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env
 # Edit .env with your configuration
-alembic upgrade head
+# Note: Database initialization is currently commented out
 uvicorn app.main:app --reload
 ```
 
-### Frontend Setup
-
+**Frontend Setup:**
 ```bash
 cd frontend
 npm install
@@ -62,16 +64,54 @@ cp .env.example .env
 npm run dev
 ```
 
+#### For Jetson Nano 4GB (Edge Device)
+
+**Two Setup Options:**
+
+1. **Offline Mode** (Ollama - No Internet Required):
+   - Guide: [`JETSON_NANO_4GB_SETUP.md`](JETSON_NANO_4GB_SETUP.md)
+   - Script: `bash backend/scripts/setup_jetson_nano_4gb.sh`
+   - Uses: Local Ollama with `qwen:0.5b` model
+
+2. **Cloud Mode** (OpenAI - Internet Required):
+   - Guide: [`JETSON_NANO_CLOUD_SETUP.md`](JETSON_NANO_CLOUD_SETUP.md)
+   - Script: `bash backend/scripts/setup_jetson_nano_cloud.sh`
+   - Uses: OpenAI API (no Ollama needed)
+
+**Key Configuration for Jetson Nano:**
+- Use `qwen:0.5b` model (fastest, lowest memory)
+- Enable offline mode: `USE_OFFLINE_MODE=true`
+- Force edge mode: `FORCE_EDGE_MODE=true`
+- Configure 4GB+ swap space (critical!)
+
 ## Features
 
-- AI-powered legal analysis with risk assessment
-- Multilingual support (Hindi, English, Tamil, Telugu, Bengali, Marathi)
-- Voice input/output using Whisper and TTS
-- Document upload and analysis
-- RAG-based knowledge retrieval
+- **AI-powered legal analysis** with risk assessment (OpenAI or Ollama offline)
+- **Public chatbot** accessible without login/signup
+- **Multilingual support** (Hindi, English, Tamil, Telugu, Bengali, Marathi)
+- **Voice input/output** using Whisper (offline) and TTS (pyttsx3)
+- **Document upload** and text extraction (PDF, TXT)
+- **RAG-based knowledge retrieval** (Pinecone vector database)
+- **Offline mode** optimized for edge devices (Jetson Nano)
+- **Edge device optimization** with automatic model selection
 - User authentication and profiles
 - Admin dashboard
 - Legal aid center directory
+
+## Platform Support
+
+- ✅ **Laptops/Desktops**: Full features with OpenAI or Ollama
+- ✅ **Jetson Nano 4GB**: Optimized offline mode with `qwen:0.5b`
+- ✅ **Edge Devices**: Automatic optimization and model selection
+
+## Documentation
+
+- **Jetson Nano - Offline Setup**: [`JETSON_NANO_4GB_SETUP.md`](JETSON_NANO_4GB_SETUP.md) - Complete guide with Ollama (offline mode)
+- **Jetson Nano - Cloud Setup**: [`JETSON_NANO_CLOUD_SETUP.md`](JETSON_NANO_CLOUD_SETUP.md) - Setup with OpenAI (cloud mode, no Ollama)
+- **Cloud Deployment**: [`CLOUD_DEPLOYMENT_GUIDE.md`](CLOUD_DEPLOYMENT_GUIDE.md) - Deploy to cloud and hybrid architectures
+- **Quick Reference**: [`JETSON_NANO_QUICK_REFERENCE.md`](JETSON_NANO_QUICK_REFERENCE.md) - Common commands and troubleshooting
+- **Offline Setup**: [`SETUP_OFFLINE.md`](SETUP_OFFLINE.md) - General offline mode setup
+- **Speed Optimization**: [`backend/SPEED_OPTIMIZATION.md`](backend/SPEED_OPTIMIZATION.md) - Performance tuning guide
 
 ## License
 

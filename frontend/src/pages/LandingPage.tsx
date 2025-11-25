@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Scale, Users, GraduationCap, FileText, Shield, Globe, MessageCircle, Search, CheckCircle2, ArrowRight, ChevronDown, Mic, MicOff } from 'lucide-react'
+import { Scale, Users, GraduationCap, FileText, Shield, Globe, MessageCircle, Search, CheckCircle2, ArrowRight, ChevronDown, Mic, MicOff, Camera, Image as ImageIcon, X } from 'lucide-react'
 import Chatbot from '../components/Chatbot'
 import api from '../lib/api'
 
@@ -10,8 +10,14 @@ export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [isRecording, setIsRecording] = useState(false)
   const [isTranscribing, setIsTranscribing] = useState(false)
+  const [showCamera, setShowCamera] = useState(false)
+  const [isProcessingImage, setIsProcessingImage] = useState(false)
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const audioChunksRef = useRef<Blob[]>([])
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const streamRef = useRef<MediaStream | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -62,11 +68,7 @@ export default function LandingPage() {
       formData.append('audio_file', audioBlob, 'recording.webm')
       formData.append('language_hint', 'hi') // Default to Hindi, can be made dynamic
 
-      const response = await api.post('/ai/transcribe', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      const response = await api.post('/ai/transcribe', formData)
 
       if (response.data.text) {
         setSearchQuery(response.data.text)
@@ -80,6 +82,221 @@ export default function LandingPage() {
       setIsTranscribing(false)
     }
   }
+
+  const startCamera = async () => {
+    try {
+      // First, try to enumerate devices to find external/USB cameras
+      let videoConstraints: MediaTrackConstraints = {
+        width: { ideal: 1280 },
+        height: { ideal: 720 }
+      }
+
+      try {
+        const devices = await navigator.mediaDevices.enumerateDevices()
+        const videoInputs = devices.filter(device => device.kind === 'videoinput')
+        
+        // Prefer external/USB cameras (usually have longer labels or specific names)
+        // On Jetson Nano, USB cameras are typically listed separately
+        const externalCamera = videoInputs.find(device => 
+          device.label && (
+            device.label.toLowerCase().includes('usb') ||
+            device.label.toLowerCase().includes('external') ||
+            device.label.toLowerCase().includes('camera') ||
+            device.label.toLowerCase().includes('webcam') ||
+            device.label.toLowerCase().includes('logitech') ||
+            device.label.toLowerCase().includes('hd') ||
+            // Jetson Nano specific camera names
+            device.label.toLowerCase().includes('uvc') ||
+            device.label.toLowerCase().includes('video')
+          )
+        )
+
+        if (externalCamera && externalCamera.deviceId) {
+          // Use external camera device ID
+          videoConstraints.deviceId = { exact: externalCamera.deviceId }
+          console.log('Using external camera:', externalCamera.label)
+        } else if (videoInputs.length > 1) {
+          // If multiple cameras, prefer the last one (usually external on Jetson Nano)
+          const lastCamera = videoInputs[videoInputs.length - 1]
+          if (lastCamera.deviceId) {
+            videoConstraints.deviceId = { exact: lastCamera.deviceId }
+            console.log('Using camera:', lastCamera.label || 'Camera ' + videoInputs.length)
+          }
+        } else if (videoInputs.length === 1 && videoInputs[0].deviceId) {
+          // Only one camera available
+          videoConstraints.deviceId = { exact: videoInputs[0].deviceId }
+          console.log('Using available camera:', videoInputs[0].label || 'Camera')
+        } else {
+          // Fallback to facingMode for mobile devices
+          videoConstraints.facingMode = 'environment'
+        }
+      } catch (enumError) {
+        console.warn('Could not enumerate devices, using default camera:', enumError)
+        // Fallback to facingMode
+        videoConstraints.facingMode = 'environment'
+      }
+
+      // Request camera access with selected constraints
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: videoConstraints
+      })
+      
+      streamRef.current = stream
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream
+        videoRef.current.onloadedmetadata = () => {
+          if (videoRef.current) {
+            videoRef.current.play().catch(err => {
+              console.error('Error playing video:', err)
+            })
+          }
+        }
+      }
+      setShowCamera(true)
+    } catch (error: any) {
+      console.error('Error accessing camera:', error)
+      if (error.name === 'NotAllowedError') {
+        alert('Camera access denied. Please enable camera permissions in your browser settings.')
+      } else if (error.name === 'NotFoundError') {
+        alert('No camera found. Please connect a camera and try again.')
+      } else {
+        alert(`Camera error: ${error.message || 'Unable to access camera'}`)
+      }
+    }
+  }
+
+  const stopCamera = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop())
+      streamRef.current = null
+    }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null
+      videoRef.current.pause()
+    }
+    setShowCamera(false)
+  }
+
+  const captureImage = () => {
+    if (!videoRef.current || !canvasRef.current) {
+      console.error('Video or canvas ref not available')
+      return
+    }
+
+    const video = videoRef.current
+    const canvas = canvasRef.current
+
+    if (video.readyState !== video.HAVE_ENOUGH_DATA) {
+      console.error('Video not ready')
+      alert('Please wait for camera to be ready')
+      return
+    }
+
+    const context = canvas.getContext('2d')
+    if (!context) {
+      console.error('Could not get canvas context')
+      return
+    }
+
+    const videoWidth = video.videoWidth || 640
+    const videoHeight = video.videoHeight || 480
+    
+    if (videoWidth === 0 || videoHeight === 0) {
+      console.error('Invalid video dimensions')
+      alert('Camera not ready. Please try again.')
+      return
+    }
+
+    canvas.width = videoWidth
+    canvas.height = videoHeight
+
+    try {
+      context.drawImage(video, 0, 0, videoWidth, videoHeight)
+    } catch (error) {
+      console.error('Error drawing video to canvas:', error)
+      alert('Failed to capture image. Please try again.')
+      return
+    }
+
+    canvas.toBlob(async (blob) => {
+      if (blob) {
+        stopCamera()
+        const file = new File([blob], 'camera-capture.jpg', { type: 'image/jpeg' })
+        await handleImageUpload(file)
+      } else {
+        console.error('Failed to create blob from canvas')
+        alert('Failed to process captured image. Please try again.')
+      }
+    }, 'image/jpeg', 0.9)
+  }
+
+  const handleImageUpload = async (file: File) => {
+    if (!file) return
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert('Image size must be less than 10MB')
+      return
+    }
+
+    if (!file.type.startsWith('image/')) {
+      alert('Please upload an image file (JPG, PNG, etc.)')
+      return
+    }
+
+    setIsProcessingImage(true)
+
+    try {
+      const formData = new FormData()
+      formData.append('image', file)
+      formData.append('domain', 'civil') // Default domain
+      formData.append('language', 'en') // Default language
+      formData.append('analyze', 'true')
+
+      const response = await api.post('/public/ocr', formData, {
+        timeout: 60000,
+      })
+
+      const ocrData = response.data
+
+      // Set extracted text as search query and open chatbot
+      if (ocrData.extracted_text && ocrData.extracted_text.trim()) {
+        setSearchQuery(ocrData.extracted_text)
+        setShowChatbot(true)
+      } else {
+        alert('No text could be extracted from this image. Please ensure the image is clear and contains readable text.')
+      }
+    } catch (error: any) {
+      console.error('Image processing error:', error)
+      alert(`Failed to process image: ${error.response?.data?.detail || error.message}`)
+    } finally {
+      setIsProcessingImage(false)
+    }
+  }
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    if (file.type.startsWith('image/')) {
+      await handleImageUpload(file)
+      return
+    }
+
+    alert('Please upload an image file for OCR.')
+  }
+
+  // Cleanup camera stream on unmount
+  useEffect(() => {
+    return () => {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop())
+        streamRef.current = null
+      }
+      if (videoRef.current) {
+        videoRef.current.srcObject = null
+      }
+    }
+  }, [])
 
   const faqs = [
     {
@@ -171,6 +388,28 @@ export default function LandingPage() {
                   className="w-full pl-12 pr-36 py-4 bg-white dark:bg-[#161B22] border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 dark:focus:ring-red-400/20 dark:focus:border-red-400 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                 />
                 <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center gap-2">
+                  {/* Camera Button */}
+                  <button
+                    type="button"
+                    onClick={startCamera}
+                    className="p-2.5 rounded-xl bg-gray-100 dark:bg-[#0D1117] hover:bg-gray-200 dark:hover:bg-[#161B22] text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-all"
+                    title="Capture image with camera"
+                    disabled={isTranscribing || isProcessingImage || showCamera}
+                  >
+                    <Camera className="w-5 h-5" />
+                  </button>
+                  {/* Document/Image Upload Button */}
+                  <label className="p-2.5 rounded-xl bg-gray-100 dark:bg-[#0D1117] hover:bg-gray-200 dark:hover:bg-[#161B22] text-gray-600 dark:text-gray-400 hover:text-green-500 dark:hover:text-green-400 transition-all cursor-pointer" title="Upload image or document">
+                    <ImageIcon className="w-5 h-5" />
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*,.jpg,.jpeg,.png,.gif,.webp"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                      disabled={isTranscribing || isProcessingImage || showCamera}
+                    />
+                  </label>
                   {/* Microphone Button */}
                   <button
                     type="button"
@@ -181,7 +420,7 @@ export default function LandingPage() {
                         : 'bg-gray-100 dark:bg-[#0D1117] hover:bg-gray-200 dark:hover:bg-[#161B22] text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400'
                     }`}
                     title={isRecording ? 'Stop recording' : 'Start voice search'}
-                    disabled={isTranscribing}
+                    disabled={isTranscribing || isProcessingImage || showCamera}
                   >
                     {isRecording ? (
                       <MicOff className="w-5 h-5" />
@@ -194,10 +433,10 @@ export default function LandingPage() {
                   {/* Ask AI Button */}
                   <button
                     type="submit"
-                    disabled={!searchQuery.trim() || isTranscribing}
+                    disabled={!searchQuery.trim() || isTranscribing || isProcessingImage}
                     className="px-6 py-2.5 bg-gradient-to-r from-red-500 to-blue-500 text-white rounded-xl hover:from-red-600 hover:to-blue-600 transition-all font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                   >
-                    {isTranscribing ? 'Transcribing...' : 'Ask AI'}
+                    {isTranscribing ? 'Transcribing...' : isProcessingImage ? 'Processing...' : 'Ask AI'}
                   </button>
                 </div>
               </div>
@@ -221,7 +460,64 @@ export default function LandingPage() {
                   </div>
                 </div>
               )}
+              {isProcessingImage && (
+                <div className="mt-3 text-center">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-full">
+                    <div className="w-4 h-4 border-2 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+                    <span className="text-sm text-green-600 dark:text-green-400 font-medium">
+                      Processing image...
+                    </span>
+                  </div>
+                </div>
+              )}
             </form>
+
+            {/* Camera Modal */}
+            {showCamera && (
+              <div className="fixed inset-0 bg-black/80 z-50 flex flex-col items-center justify-center p-4">
+                <div className="bg-white dark:bg-[#161B22] rounded-2xl p-4 w-full max-w-md">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">Capture Image</h3>
+                    <button
+                      onClick={stopCamera}
+                      className="p-2 hover:bg-gray-100 dark:hover:bg-[#0D1117] rounded-lg"
+                    >
+                      <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                    </button>
+                  </div>
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    playsInline
+                    muted
+                    className="w-full rounded-lg mb-4 bg-black"
+                    style={{ maxHeight: '60vh', objectFit: 'contain' }}
+                    onLoadedMetadata={() => {
+                      if (videoRef.current) {
+                        videoRef.current.play().catch(err => {
+                          console.error('Error playing video:', err)
+                        })
+                      }
+                    }}
+                  />
+                  <canvas ref={canvasRef} className="hidden" />
+                  <div className="flex gap-2">
+                    <button
+                      onClick={stopCamera}
+                      className="flex-1 px-4 py-2 bg-gray-200 dark:bg-[#0D1117] text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-[#161B22] transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={captureImage}
+                      className="flex-1 px-4 py-2 bg-gradient-to-r from-red-500 to-blue-500 text-white rounded-lg hover:from-red-600 hover:to-blue-600 transition-all"
+                    >
+                      Capture
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="flex flex-wrap gap-4 justify-center">
               <Link

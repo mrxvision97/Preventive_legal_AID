@@ -8,7 +8,8 @@ from contextlib import asynccontextmanager
 import structlog
 
 from app.core.config import settings
-from app.core.database import init_db
+# Database initialization commented out - running without DB
+# from app.core.database import init_db
 from app.api.v1.router import api_router
 from app.middleware.rate_limit import RateLimitMiddleware
 from app.middleware.logging import LoggingMiddleware
@@ -21,7 +22,23 @@ async def lifespan(app: FastAPI):
     """Application lifespan events"""
     # Startup
     logger.info("Starting application", app_name=settings.APP_NAME)
-    await init_db()
+    
+    # Load secrets from cloud storage
+    try:
+        from app.services.cloud_secrets import load_secrets
+        await load_secrets()
+    except Exception as e:
+        logger.warning("Secrets loading failed, using defaults", error=str(e))
+    
+    # Initialize database (commented out for now - running without DB)
+    # await init_db()
+    
+    # Initialize Redis
+    try:
+        from app.core.redis import init_redis
+        await init_redis()
+    except Exception as e:
+        logger.warning("Redis initialization skipped", error=str(e))
     
     # Initialize Pinecone
     try:
@@ -29,6 +46,18 @@ async def lifespan(app: FastAPI):
         await init_pinecone()
     except Exception as e:
         logger.warning("Pinecone initialization skipped", error=str(e))
+    
+    # Log device detection and optimizations
+    try:
+        from app.core.edge_optimization import is_edge_device, optimize_for_edge
+        is_edge = is_edge_device()
+        if is_edge:
+            optimizations = optimize_for_edge()
+            logger.info("Edge device detected (Jetson Nano) - optimizations applied", **optimizations)
+        else:
+            logger.info("Laptop/Desktop detected - using full-featured models (OpenAI preferred)")
+    except Exception as e:
+        logger.debug("Device detection check failed", error=str(e))
     
     logger.info("Application started successfully")
     yield

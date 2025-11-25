@@ -13,8 +13,11 @@ from app.services.ai_service import (
     transcribe_audio,
     synthesize_speech,
 )
-from app.api.v1.endpoints.auth import get_current_user
-from app.models.user import User
+
+# DB/Auth imports commented out - running without DB
+# from app.api.v1.endpoints.auth import get_current_user
+# from app.models.user import User
+
 import structlog
 
 logger = structlog.get_logger()
@@ -28,32 +31,14 @@ class AnalyzeRequest(BaseModel):
     language: str = "en"
 
 
-@router.post("/analyze")
-async def analyze_query(
-    request: AnalyzeRequest,
-    current_user: User = Depends(get_current_user),
-):
-    """Direct AI analysis endpoint for testing"""
-    try:
-        user_context = request.user_context or {
-            "user_type": current_user.user_type.value,
-            "location": current_user.location or {},
-        }
-        
-        result = await analyze_legal_query(
-            query_text=request.query_text,
-            domain=request.domain,
-            user_context=user_context,
-            language=request.language,
-        )
-        
-        return result
-    except Exception as e:
-        logger.error("AI analysis failed", error=str(e))
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Analysis failed: {str(e)}"
-        )
+# DB-dependent endpoints commented out - use /public/chat instead
+# @router.post("/analyze")
+# async def analyze_query(
+#     request: AnalyzeRequest,
+#     current_user: User = Depends(get_current_user),
+# ):
+#     """Direct AI analysis endpoint for testing"""
+#     Use /public/chat endpoint instead - no authentication required
 
 
 class TranslateRequest(BaseModel):
@@ -62,34 +47,27 @@ class TranslateRequest(BaseModel):
     source_language: str = "en"
 
 
-@router.post("/translate")
-async def translate(
-    request: TranslateRequest,
-    current_user: User = Depends(get_current_user),
-):
-    """Translate text between supported languages"""
-    try:
-        translated = await translate_text(
-            text=request.text,
-            target_language=request.target_language,
-            source_language=request.source_language,
-        )
-        return {"translated_text": translated}
-    except Exception as e:
-        logger.error("Translation failed", error=str(e))
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Translation failed: {str(e)}"
-        )
+# Use /public/translate endpoint instead - no authentication required
+# @router.post("/translate")
+# async def translate(
+#     request: TranslateRequest,
+#     current_user: User = Depends(get_current_user),
+# ):
+#     """Translate text between supported languages"""
+#     Use /public/translate endpoint instead
 
 
 @router.post("/transcribe")
 async def transcribe(
     audio_file: UploadFile = File(...),
     language_hint: str = "hi",
-    current_user: User = Depends(get_current_user),
+    use_offline: bool = False,
+    # current_user removed - public endpoint (no DB required)
 ):
-    """Transcribe audio file to text"""
+    """
+    Transcribe audio file to text
+    Supports both online (OpenAI Whisper) and offline (local Whisper) modes
+    """
     try:
         # Save uploaded file temporarily
         with tempfile.NamedTemporaryFile(delete=False, suffix=".webm") as tmp_file:
@@ -98,7 +76,7 @@ async def transcribe(
             tmp_path = tmp_file.name
         
         try:
-            result = await transcribe_audio(tmp_path, language_hint)
+            result = await transcribe_audio(tmp_path, language_hint, use_offline=use_offline)
             return result
         finally:
             # Clean up temp file
@@ -122,21 +100,30 @@ class SynthesizeRequest(BaseModel):
 @router.post("/synthesize")
 async def synthesize(
     request: SynthesizeRequest,
-    current_user: User = Depends(get_current_user),
+    use_offline: bool = False,
+    # current_user removed - public endpoint (no DB required)
 ):
-    """Convert text to speech"""
+    """
+    Convert text to speech
+    Supports both online (OpenAI TTS) and offline (pyttsx3) modes
+    """
     try:
         audio_bytes = await synthesize_speech(
             text=request.text,
             voice=request.voice,
             language=request.language,
+            use_offline=use_offline,
         )
         
         from fastapi.responses import Response
+        # Determine content type based on offline/online
+        content_type = "audio/wav" if use_offline else "audio/mpeg"
+        filename = "speech.wav" if use_offline else "speech.mp3"
+        
         return Response(
             content=audio_bytes,
-            media_type="audio/mpeg",
-            headers={"Content-Disposition": "attachment; filename=speech.mp3"}
+            media_type=content_type,
+            headers={"Content-Disposition": f"attachment; filename={filename}"}
         )
     except Exception as e:
         logger.error("Speech synthesis failed", error=str(e))
@@ -148,10 +135,9 @@ async def synthesize(
 
 @router.get("/suggestions")
 async def get_suggestions(
-    current_user: User = Depends(get_current_user),
+    # current_user removed - public endpoint (no DB required)
 ):
-    """Get personalized topic suggestions"""
-    # TODO: Implement personalized suggestions based on user history
+    """Get topic suggestions (public endpoint)"""
     suggestions = [
         "Agricultural land leasing rights",
         "Tenant protection laws",

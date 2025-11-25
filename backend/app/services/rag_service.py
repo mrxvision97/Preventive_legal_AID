@@ -2,21 +2,28 @@
 RAG (Retrieval Augmented Generation) Service
 """
 from typing import List, Dict, Any, Optional
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
-from langchain.chains import RetrievalQA
+# RetrievalQA is deprecated in newer langchain versions - not used in this file
+# from langchain.chains.retrieval_qa.base import RetrievalQA
 from app.core.config import settings
 import structlog
 import tiktoken
 
 logger = structlog.get_logger()
 
-# Initialize embeddings
-embeddings = OpenAIEmbeddings(
-    model=settings.OPENAI_EMBEDDING_MODEL,
-    openai_api_key=settings.OPENAI_API_KEY,
-)
+# Initialize embeddings (only if OpenAI API key is available)
+embeddings = None
+try:
+    if settings.OPENAI_API_KEY:
+        embeddings = OpenAIEmbeddings(
+            model=settings.OPENAI_EMBEDDING_MODEL,
+            openai_api_key=settings.OPENAI_API_KEY,
+        )
+        logger.info("Embeddings initialized successfully")
+except Exception as e:
+    logger.warning("Failed to initialize embeddings - offline mode", error=str(e))
 
 # Text splitter configuration
 text_splitter = RecursiveCharacterTextSplitter(
@@ -35,6 +42,8 @@ def split_document(text: str) -> List[str]:
 
 async def generate_embeddings(text: str) -> List[float]:
     """Generate embeddings for text"""
+    if embeddings is None:
+        raise Exception("Embeddings not initialized - OpenAI API key required or use offline mode")
     try:
         embedding = await embeddings.aembed_query(text)
         return embedding
@@ -47,7 +56,8 @@ async def retrieve_relevant_context(
     query: str,
     domain: str,
     top_k: int = 10,
-    location_filter: Optional[Dict[str, Any]] = None
+    location_filter: Optional[Dict[str, Any]] = None,
+    skip_if_offline: bool = True
 ) -> List[Dict[str, Any]]:
     """
     Retrieve relevant context from vector database
@@ -57,11 +67,18 @@ async def retrieve_relevant_context(
         domain: Legal domain filter
         top_k: Number of chunks to retrieve
         location_filter: Location-based filter
+        skip_if_offline: If True, return empty list in offline mode instead of failing
         
     Returns:
         List of relevant chunks with metadata
     """
     try:
+        # Check if we're in offline mode
+        from app.core.config import settings
+        if skip_if_offline and (settings.USE_OFFLINE_MODE or not settings.OPENAI_API_KEY):
+            logger.info("Skipping RAG retrieval - offline mode or no OpenAI API key")
+            return []
+        
         # Generate query embedding
         query_embedding = await generate_embeddings(query)
         
@@ -81,7 +98,8 @@ async def retrieve_relevant_context(
         return ranked_results[:5]
         
     except Exception as e:
-        logger.error("RAG retrieval failed", error=str(e))
+        logger.warning("RAG retrieval failed, continuing without context", error=str(e))
+        # Return empty list instead of failing - allows offline mode to work
         return []
 
 
