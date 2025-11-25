@@ -25,8 +25,8 @@ Preventive_legal/
 
 ### Frontend
 - React 18 with TypeScript
-- Vite as build tool
-- Tailwind CSS + shadcn/ui
+- Create React App (CRA) - compatible with Node.js 16+ for Jetson Nano
+- Tailwind CSS for styling
 - Zustand for state management
 - React Hook Form + Zod
 - Axios for HTTP requests
@@ -35,7 +35,7 @@ Preventive_legal/
 
 ### Prerequisites
 - Python 3.11+ (or 3.8+ for Jetson Nano)
-- Node.js 18+
+- Node.js 16+ (for Jetson Nano Ubuntu 18.04) or Node.js 18+ (for modern systems)
 - PostgreSQL 15+ (optional - currently disabled)
 - Redis 7+ (optional - for caching)
 
@@ -59,9 +59,17 @@ uvicorn app.main:app --reload
 ```bash
 cd frontend
 npm install
-cp .env.example .env
-# Edit .env with your API URL
-npm run dev
+# Create .env file with REACT_APP_API_URL=http://localhost:8000
+npm start  # Starts on port 3000 (CRA default)
+```
+
+**For Jetson Nano (Ubuntu 18.04 + Node.js 16):**
+```bash
+cd frontend
+bash setup_jetson_nano.sh  # Automated setup script
+# Or manually:
+npm install
+npm start
 ```
 
 #### For Jetson Nano 4GB (Edge Device)
